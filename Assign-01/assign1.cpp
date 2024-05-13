@@ -1,11 +1,6 @@
 #include <cstdio>
-#include <cstdlib>
-#include <cstring>
 
 #include "assessGrade.h"
-
-
-void parseUserInput(const char*);
 
 int main()
 {
@@ -24,10 +19,11 @@ int main()
 		else if (str[0] == 'Z' && str[1] == ' ')
 		{
 			const char* filename = &str[2];
-			FILE* file = fopen(filename, "r");
+			FILE* file = nullptr;
+			fopen_s(&file, filename, "r");
 			if (file == nullptr)
 			{
-				printf("Error: File can't be opened or doesn't exit!\n");
+				printf("**File I / O ERROR\n");
 				continue;
 			}
 
@@ -48,11 +44,5 @@ int main()
 	}
 
 	return 0;
-}
-
-void parseUserInput(const char* str)
-{
-	sscanf_s(str, "%d %d %d %d %d");
-
 }
 
