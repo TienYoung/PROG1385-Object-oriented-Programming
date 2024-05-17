@@ -7,7 +7,7 @@
 
 void parseUserInput(const char* str)
 {
-	char s[MAX_CHARS][5] = { "" };
+	char s[5][MAX_CHARS] = { };
 	char temp[MAX_CHARS] = "";
 	int num = sscanf_s(str, "%s %s %s %s %s %s",
 		s[0], MAX_CHARS,
