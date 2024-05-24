@@ -1,3 +1,12 @@
+/*
+ * FILE : assign1.cpp
+ * PROJECT : PROG1385 - ASSIGNMENT 1
+ * PROGRAMMER : Tian Yang
+ * FIRST VERSION : 2024-05-12
+ * DESCRIPTION :
+ * This file contains the main loop requesting the user’s input, 
+ */
+
 #include <cstdio>
 
 #include "assessGrade.h"

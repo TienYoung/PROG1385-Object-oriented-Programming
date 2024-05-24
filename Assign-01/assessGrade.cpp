@@ -1,3 +1,13 @@
+/*
+ * FILE : assessGrad.cpp
+ * PROJECT : PROG1385 - ASSIGNMENT 1
+ * PROGRAMMER : Tian Yang
+ * FIRST VERSION : 2024-05-12
+ * DESCRIPTION :
+ * Implementation of parseUserInput() and assessGrade()
+ */
+
+
 #include "assessGrade.h"
 
 #include <cstdio>
@@ -5,6 +15,15 @@
 #include <cctype>
 #include <cstdlib>
 
+/*
+Function: parseUserInput()
+Description:
+	Examine user input and determine use which assessGrade function.
+Parameter: 
+	const char* str: representing the user’s input
+Return Value: 
+	void: 
+*/
 void parseUserInput(const char* str)
 {
 	char s[5][MAX_CHARS] = { };
@@ -42,6 +61,15 @@ void parseUserInput(const char* str)
 	}
 }
 
+/*
+Function: assessGrade()
+Description:
+	Assess a letter grade
+Parameter:
+   char* letter: a letter grade or special situation
+Return Value:
+   void:
+*/
 void assessGrade(char* letter)
 {
 	if (strcmp(letter, "A+") == 0)
@@ -102,6 +130,15 @@ void assessGrade(char* letter)
 	}
 }
 
+/*
+Function: assessGrade()
+Description:
+	Assess the final mark.
+Parameter:
+   double grade: the final mark
+Return Value:
+   void:
+*/
 void assessGrade(double grade)
 {
 	if (grade > 100.0 || grade < 0.0)
@@ -113,6 +150,16 @@ void assessGrade(double grade)
 
 }
 
+/*
+Function: assessGrade()
+Description:
+	Assess a letter grade
+Parameter:
+   int g[]: assignment marks
+   int num: the number of assignments
+Return Value:
+   void:
+*/
 void assessGrade(int g[], int num)
 {
 	double sum = 0.0;
@@ -128,6 +175,16 @@ void assessGrade(int g[], int num)
 	assessGrade(sum * 0.2);
 }
 
+
+/*
+Function: printInvalidInput()
+Description:
+	print the error info.
+Parameter:
+   void:
+Return Value:
+   void:
+*/
 void printInvalidInput()
 {
 	printf("**ERROR : Invalid Input\n");
