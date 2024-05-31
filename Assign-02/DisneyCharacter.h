@@ -1,39 +1,42 @@
 #include <cstring>
 #include <cstdio>
 
-#define MAX_CHARS 50
+#define MAX_CHAR_LEN 50
+#define DATE_FORMAT_LENGTH 11
 
 class DisneyCharacter
 {
 public:
-    DisneyCharacter(const char* name, const char* createDate, int numMovies, char whichPark);
-    DisneyCharacter(const char* name, const char* createDate);
+    DisneyCharacter(const char* name, const char* creationDate, int numMovies, char whichPark);
+    DisneyCharacter(const char* name, const char* creationDate);
     ~DisneyCharacter();
 
     void ShowInfo(void);
     bool PlaceCharacter(char whichPark);
     void SameMovies(DisneyCharacter& anotherCharacter);
 
+    const char* GetName() const;
+    const char* GetCreationDate() const;
+    int GetNumMovies() const;
+    char GetWhichPark() const;
 
-    inline const char* GetName() const { return name; };
-    inline const char* GetCreationDate() const{ return creationDate; };
-    inline int GetNumMovies() const { return numMovies; };
-    inline char GetWhichPark() const { return whichPark; };
-
-    void SetName(const char* name) { strcpy_s(this->name, MAX_CHARS, name); }
+    void SetName(const char* name) { strcpy_s(this->name, MAX_CHAR_LEN, name); }
 
     bool SetCreationDate(const char* date) 
     {
-        char* yyyy = nullptr;
-        char* mm = nullptr;
-        char* dd = nullptr;
-        if (sscanf_s(date, "%s-%s-%s", yyyy, 4, mm, 2, dd, 2) != 3)
+        char yyyy[5] = "";
+        char mm[3] = "";
+        char dd[3] = "";
+        if (sscanf_s(date, "%4s-%2s-%2s", yyyy, 5, mm, 3, dd, 3) != 3)
         {
+            printf("error date\n");
             return false;
         }
         else
         {
             // TODO: validate the numbers.
+            strcpy_s(creationDate, DATE_FORMAT_LENGTH, date);
+            return true;
         }
     }
     
@@ -73,8 +76,8 @@ public:
     }
 
 private:
-    char name[50];
-    char creationDate[50];
+    char name[MAX_CHAR_LEN];
+    char creationDate[DATE_FORMAT_LENGTH];
     int numMovies;
     char whichPark;
 };
