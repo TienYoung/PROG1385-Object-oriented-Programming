@@ -28,6 +28,8 @@ public:
     void SameMovies(DisneyCharacter& anotherCharacter);
 
     static const size_t kDateFormatLength; // yyyy-mm-dd
+    static const int kZero; // 0
+    static const char kNotPlaced; // 'N'
 
 private:
     char name[MAX_CHAR_LEN];

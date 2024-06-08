@@ -16,6 +16,10 @@ void regulateName(char* output, const char* name)
 
 const size_t DisneyCharacter::kDateFormatLength = 10; // yyyy-mm-dd
 
+const int DisneyCharacter::kZero = 0;
+
+const char DisneyCharacter::kNotPlaced = 'N';
+
 void regulateDate(char* output, const char* date)
 {
     bool isNegative = date[0] == '-';
@@ -39,7 +43,7 @@ void regulateDate(char* output, const char* date)
 
 bool validateNum(int num)
 {
-	return num >= 0;
+	return num >= DisneyCharacter::kZero;
 }
 
 bool validatePark(char park)
@@ -63,8 +67,8 @@ DisneyCharacter::DisneyCharacter(const char* name, const char* creationDate, int
     regulateName(this->name, name);
     regulateDate(this->creationDate, creationDate);
  
-    this->numMovies = validateNum(numMovies) ? numMovies : 0;
-    this->whichPark = validatePark(whichPark) ? whichPark : 'N';
+    this->numMovies = validateNum(numMovies) ? numMovies : kZero;
+    this->whichPark = validatePark(whichPark) ? whichPark : kNotPlaced;
 }
 
 DisneyCharacter::DisneyCharacter(const char* name, const char* creationDate)
@@ -72,8 +76,8 @@ DisneyCharacter::DisneyCharacter(const char* name, const char* creationDate)
 	regulateName(this->name, name);
 	regulateDate(this->creationDate, creationDate);
 
-    this->numMovies = 0;
-    this->whichPark = 'N';
+    this->numMovies = kZero;
+    this->whichPark = kNotPlaced;
 }
 
 DisneyCharacter::~DisneyCharacter()
