@@ -5,8 +5,6 @@
 #define MAX_CHAR_LEN 50
 #define TRUNCATE_LEN 46
 
-const size_t kDateFormat = 10; // yyyy-mm-dd
-
 class DisneyCharacter
 {
 public:
@@ -29,13 +27,12 @@ public:
     bool PlaceCharacter(char whichPark);
     void SameMovies(DisneyCharacter& anotherCharacter);
 
+    static const size_t kDateFormatLength; // yyyy-mm-dd
 
 private:
     char name[MAX_CHAR_LEN];
     char creationDate[MAX_CHAR_LEN];
     int numMovies;
     char whichPark;
-
-    void EnsureNameAndDateValid(const char* name, const char* date);
 };
 
