@@ -1,24 +1,22 @@
 #include "DisneyCharacter.h"
 
-bool validateName(char* output, const char* name)
+void regulateName(char* output, const char* name)
 {
     size_t length = strlen(name) + 1;
     if (length > MAX_CHAR_LEN)
     {
         strncpy_s(output, MAX_CHAR_LEN, name, TRUNCATE_LEN - 1);
         strcat_s(output, MAX_CHAR_LEN, " ...");
-        return false;
     }
     else
     {
         strcpy_s(output, MAX_CHAR_LEN, name);
-        return true;
     }
 }
 
 const size_t DisneyCharacter::kDateFormatLength = 10; // yyyy-mm-dd
 
-bool validateDate(char* output, const char* date)
+void regulateDate(char* output, const char* date)
 {
     bool isNegative = date[0] == '-';
     if (isNegative) date++;
@@ -31,21 +29,20 @@ bool validateDate(char* output, const char* date)
             if (isNegative) date--;
 
             strcpy_s(output, MAX_CHAR_LEN, date);
-            return true;
         }
     }
-
-    return false;
+    else
+    {
+        strcpy_s(output, MAX_CHAR_LEN, "");
+    }
 }
 
-bool validateNum(int& output, int num)
+bool validateNum(int num)
 {
-	bool valid = num >= 0;
-	output = valid ? num : 0;
-	return valid;
+	return num >= 0;
 }
 
-bool validatePark(char& output, char park)
+bool validatePark(char park)
 {
     switch (park)
     {
@@ -54,29 +51,29 @@ bool validatePark(char& output, char park)
     case 'A':
     case 'E':
     case 'C':
-        output = park;
         return true;
     case 'N':
     default:
-        output = 'N';
         return false;
     }
 }
 
 DisneyCharacter::DisneyCharacter(const char* name, const char* creationDate, int numMovies, char whichPark)
 {
-	validateName(this->name, name);
-	validateDate(this->creationDate, creationDate);
-    validateNum(this->numMovies, numMovies);
-	validatePark(this->whichPark, whichPark);
+    regulateName(this->name, name);
+    regulateDate(this->creationDate, creationDate);
+ 
+    this->numMovies = validateNum(numMovies) ? numMovies : 0;
+    this->whichPark = validatePark(whichPark) ? whichPark : 'N';
 }
 
 DisneyCharacter::DisneyCharacter(const char* name, const char* creationDate)
 {
-	validateName(this->name, name);
-	validateDate(this->creationDate, creationDate);
-    validateNum(numMovies, 0);
-    validatePark(whichPark, 'P');
+	regulateName(this->name, name);
+	regulateDate(this->creationDate, creationDate);
+
+    this->numMovies = 0;
+    this->whichPark = 'N';
 }
 
 DisneyCharacter::~DisneyCharacter()
@@ -106,12 +103,18 @@ char DisneyCharacter::GetWhichPark() const
 
 bool DisneyCharacter::SetNumMovies(int num)
 {
-	return validateNum(numMovies, num);
+    bool valid = validateNum(num);
+    if (valid) 
+        numMovies = num;
+    return valid;
 }
 
 bool DisneyCharacter::SetWhichPark(char park)
 {
-    return validatePark(whichPark, park);
+    bool valid = validatePark(park);
+    if (valid)
+        whichPark = park;
+    return valid;
 }
 
 void DisneyCharacter::ShowInfo(void)
