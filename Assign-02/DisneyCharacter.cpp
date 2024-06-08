@@ -51,8 +51,8 @@ bool validatePark(char park)
     case 'A':
     case 'E':
     case 'C':
-        return true;
     case 'N':
+        return true;
     default:
         return false;
     }
