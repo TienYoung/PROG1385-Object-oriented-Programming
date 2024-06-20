@@ -13,10 +13,12 @@ class AmFmRadio
 {
 private:
     Freqs	button[5];
-    double	current_station;
+    Freqs	current_station;
     char	band[3];
     int		volume;
+    int     previous_volume;
     bool	on;
+    bool    display_output;
 
 public:
     //sets the each button to the lowest frequency, sets the current station, sets the
@@ -44,6 +46,8 @@ public:
     //sets volume
     int SetVolume();
 
+    int SetVolume(int volume);
+
     //shows volume, button settings, current station, AM or FM
     void ShowCurrentSettings();
 
@@ -52,5 +56,18 @@ public:
 
     void ScanDown();
 
+    bool SetCurrentStation(double station);
+
+    void SetDisplayOutput(bool display);
+
+    void GetCurrentStation(Freqs& station);
+
+    int GetCurrentVolume();
+
+    void GetRadioPresets(Freqs presets[5]);
+
+    void GetCurrentBand(char band[3]);
+
+    bool GetDisplayOutput();
 };
 #endif
