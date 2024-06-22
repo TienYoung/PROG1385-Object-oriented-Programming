@@ -1,13 +1,34 @@
-//AmFmRadio.cpp
-// This header comment is quite inadequate and should be replaced.
-
+/*
+* FILE : AmFmRadio.cpp
+* PROJECT : PROG1385 - Assignment #3
+* PROGRAMMER : Tian Yang
+* FIRST VERSION : 2024-06-05
+* DESCRIPTION :
+* This file contains the implementation of the AmFmRadio class. It provides
+* functionality for a simulated AM/FM radio, including power control,
+* frequency tuning, preset management, volume control, and display settings.
+* The class allows users to toggle power, change bands, set and select presets,
+* adjust volume, scan frequencies, and retrieve current radio settings.
+* It also includes constructors for initializing the radio with default
+* or custom preset frequencies.
+*/
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "AmFmRadio.h"
 
-
+/*
+* FUNCTION : AmFmRadio (constructor)
+* DESCRIPTION :
+*   Initializes a new AmFmRadio object. Sets each button to the lowest frequency,
+*   sets the current station, sets the band to AM, sets the volume to 0,
+*   and sets the power state.
+* PARAMETERS :
+*   bool on : initial power state of the radio (default is false)
+* RETURNS :
+*   None (constructor)
+*/
 AmFmRadio::AmFmRadio(bool on /*= false*/)
 {
     for (int i = 0; i < 5; ++i)
@@ -27,6 +48,17 @@ AmFmRadio::AmFmRadio(bool on /*= false*/)
     display_output = false;
 }
 
+/*
+* FUNCTION : AmFmRadio (constructor with presets)
+* DESCRIPTION :
+*   Initializes a new AmFmRadio object with preset stations. Sets the power state
+*   and initializes the preset buttons with the provided frequencies.
+* PARAMETERS :
+*   bool on : initial power state of the radio
+*   Freqs preset[5] : array of 5 preset frequencies
+* RETURNS :
+*   None (constructor)
+*/
 AmFmRadio::AmFmRadio(bool on, Freqs preset[5])
 {
     for (int i = 0; i < 5; ++i)
@@ -46,11 +78,29 @@ AmFmRadio::AmFmRadio(bool on, Freqs preset[5])
     display_output = false;
 }
 
+/*
+* FUNCTION : ~AmFmRadio (destructor)
+* DESCRIPTION :
+*   Cleans up any resources used by the AmFmRadio object.
+* PARAMETERS :
+*   None
+* RETURNS :
+*   None (destructor)
+*/
 AmFmRadio::~AmFmRadio()
 {
     printf("Destroying AmFmRadio\n");
 }
 
+/*
+* FUNCTION : PowerToggle
+* DESCRIPTION :
+*   Toggles the power state of the radio (on/off).
+* PARAMETERS :
+*   None
+* RETURNS :
+*   void
+*/
 void AmFmRadio::PowerToggle()
 {
     if (on == false)
@@ -66,11 +116,29 @@ void AmFmRadio::PowerToggle()
     }
 }
 
+/*
+* FUNCTION : IsRadioOn
+* DESCRIPTION :
+*   Checks if the radio is currently powered on.
+* PARAMETERS :
+*   None
+* RETURNS :
+*   bool : true if the radio is on, false if it's off
+*/
 bool AmFmRadio::IsRadioOn()
 {
     return on;
 }
 
+/*
+* FUNCTION : SetVolume (no parameters)
+* DESCRIPTION :
+*   Sets the volume of the radio (implementation specific).
+* PARAMETERS :
+*   None
+* RETURNS :
+*   int : new volume level or status code
+*/
 int AmFmRadio::SetVolume()
 {
     char buf[20] = "";
@@ -79,22 +147,18 @@ int AmFmRadio::SetVolume()
     fgets(buf, sizeof buf, stdin);
     volume = atoi(buf);
 
-    if (volume < 0) //if user enters volume less than 0, volume = 0
-    {
-        volume = 0;
-        return 0;
-    }
-
-    if (volume > 100) //if user enters volume greater than 100, volume = 100
-    {
-        volume = 100;
-        return 2;
-    }
-    return 1;
-
-
+    return SetVolume(volume);
 }
 
+/*
+* FUNCTION : SetVolume (with parameter)
+* DESCRIPTION :
+*   Sets the volume of the radio to a specific level.
+* PARAMETERS :
+*   int volume : the desired volume level
+* RETURNS :
+*   int : new volume level or status code
+*/
 int AmFmRadio::SetVolume(int volume)
 {
     this->volume = volume;
@@ -113,32 +177,41 @@ int AmFmRadio::SetVolume(int volume)
     return 1;
 }
 
+/*
+* FUNCTION : ToggleBand
+* DESCRIPTION :
+*   Switches the radio band between AM and FM and sets the current station accordingly.
+* PARAMETERS :
+*   None
+* RETURNS :
+*   void
+*/
 void AmFmRadio::ToggleBand()
 {
     if (strcmp(band, "AM") == 0)
     {
         strcpy_s(band, sizeof(band), "FM");
-        //current_station = 87.9;
     }
     else
     {
         strcpy_s(band, sizeof(band), "AM");
-        //current_station = 530;
     }
 }
 
+/*
+* FUNCTION : SetPresetButton
+* DESCRIPTION :
+*   Sets a preset button with the current station frequency.
+* PARAMETERS :
+*   int button_num : the number of the preset button to set (1-5)
+* RETURNS :
+*   int : status code (implementation specific)
+*/
 int AmFmRadio::SetPresetButton(int button_num)
 {
     if ((button_num >= 0) && (button_num <= 4))
     {
-        if (strcmp("AM", band) == 0)
-        {
-            button[button_num].AMFreq = current_station.AMFreq;
-        }
-        else
-        {
-            button[button_num].FMFreq = current_station.FMFreq;
-        }
+        button[button_num] = GetCurrentStation();
         return 1;
 
     }
@@ -146,17 +219,26 @@ int AmFmRadio::SetPresetButton(int button_num)
 
 }
 
+/*
+* FUNCTION : SelectPresetButton
+* DESCRIPTION :
+*   Tunes the radio to the station stored in the specified preset button.
+* PARAMETERS :
+*   int button_num : the number of the preset button to select (1-5)
+* RETURNS :
+*   int : status code (implementation specific)
+*/
 int AmFmRadio::SelectPresetButton(int button_num)
 {
     if ((button_num >= 0) && (button_num <= 4))
     {
         if (strcmp("AM", band) == 0)
         {
-            current_station.AMFreq = button[button_num].AMFreq;
+            SetCurrentStation(button[button_num].AMFreq);
         }
         else
         {
-            current_station.FMFreq = button[button_num].FMFreq;
+            SetCurrentStation(button[button_num].FMFreq);
         }
 
         return 1;
@@ -166,6 +248,16 @@ int AmFmRadio::SelectPresetButton(int button_num)
 
 }
 
+/*
+* FUNCTION : ShowCurrentSettings
+* DESCRIPTION :
+*   Displays the current settings of the radio, including volume,
+*   preset buttons, current station, and band (AM/FM).
+* PARAMETERS :
+*   None
+* RETURNS :
+*   void
+*/
 void AmFmRadio::ShowCurrentSettings()
 {
 
@@ -182,11 +274,11 @@ void AmFmRadio::ShowCurrentSettings()
     printf("Volume: %d\n", volume);
     if (strcmp("AM", band) == 0)
     {
-        printf("Current Station: %d %s\n", current_station.AMFreq, band);
+        printf("Current Station: %d %s\n", GetCurrentStation().AMFreq, band);
     }
     else
     {
-        printf("Current Station: %.1f %s\n", current_station.FMFreq, band);
+        printf("Current Station: %.1f %s\n", GetCurrentStation().FMFreq, band);
     }
     printf("AM Button Settings: ");
     for (int i = 0; i < 5; ++i)
@@ -201,6 +293,15 @@ void AmFmRadio::ShowCurrentSettings()
     }
 }
 
+/*
+* FUNCTION : ScanUp
+* DESCRIPTION :
+*   Increases the current station frequency (.2 MHz for FM, 10 kHz for AM).
+* PARAMETERS :
+*   None
+* RETURNS :
+*   void
+*/
 void AmFmRadio::ScanUp()
 {
     if (strcmp("AM", band) == 0)
@@ -234,6 +335,15 @@ void AmFmRadio::ScanUp()
     }
 }
 
+/*
+* FUNCTION : ScanDown
+* DESCRIPTION :
+*   Decreases the current station frequency (.2 MHz for FM, 10 kHz for AM).
+* PARAMETERS :
+*   None
+* RETURNS :
+*   void
+*/
 void AmFmRadio::ScanDown()
 {
     if (strcmp("AM", band) == 0)
@@ -267,6 +377,15 @@ void AmFmRadio::ScanDown()
     }
 }
 
+/*
+* FUNCTION : SetCurrentStation
+* DESCRIPTION :
+*   Sets the radio to a specific station frequency.
+* PARAMETERS :
+*   double station : the desired station frequency
+* RETURNS :
+*   bool : true if successful, false otherwise
+*/
 bool AmFmRadio::SetCurrentStation(double station)
 {
     if (strcmp("AM", band) == 0)
@@ -289,21 +408,57 @@ bool AmFmRadio::SetCurrentStation(double station)
     return false;
 }
 
+/*
+* FUNCTION : SetDisplayOutput
+* DESCRIPTION :
+*   Sets whether the radio should display output or not.
+* PARAMETERS :
+*   bool display : true to enable display output, false to disable
+* RETURNS :
+*   void
+*/
 void AmFmRadio::SetDisplayOutput(bool display)
 {
     display_output = display;
 }
 
+/*
+* FUNCTION : GetCurrentStation
+* DESCRIPTION :
+*   Retrieves the current station frequency.
+* PARAMETERS :
+*   None
+* RETURNS :
+*   Freqs : the current station frequency
+*/
 Freqs AmFmRadio::GetCurrentStation()
 {
     return current_station;
 }
 
+/*
+* FUNCTION : GetCurrentVolume
+* DESCRIPTION :
+*   Retrieves the current volume level of the radio.
+* PARAMETERS :
+*   None
+* RETURNS :
+*   int : the current volume level
+*/
 int AmFmRadio::GetCurrentVolume()
 {
     return volume;
 }
 
+/*
+* FUNCTION : GetRadioPresets
+* DESCRIPTION :
+*   Retrieves the frequencies stored in all preset buttons.
+* PARAMETERS :
+*   Freqs presets[5] : array to store the preset frequencies
+* RETURNS :
+*   void
+*/
 void AmFmRadio::GetRadioPresets(Freqs presets[5])
 {
     if (presets == nullptr)
@@ -312,6 +467,15 @@ void AmFmRadio::GetRadioPresets(Freqs presets[5])
     memcpy(presets, button, sizeof(Freqs) * 5);
 }
 
+/*
+* FUNCTION : GetCurrentBand
+* DESCRIPTION :
+*   Retrieves the current radio band (AM or FM).
+* PARAMETERS :
+*   char band[3] : array to store the band string
+* RETURNS :
+*   void
+*/
 void AmFmRadio::GetCurrentBand(char band[3])
 {
     if (band == nullptr) 
@@ -322,6 +486,15 @@ void AmFmRadio::GetCurrentBand(char band[3])
     band[2] = this->band[2];
 }
 
+/*
+* FUNCTION : GetDisplayOutput
+* DESCRIPTION :
+*   Retrieves the current display output setting.
+* PARAMETERS :
+*   None
+* RETURNS :
+*   bool : true if display output is enabled, false otherwise
+*/
 bool AmFmRadio::GetDisplayOutput()
 {
     return display_output;
