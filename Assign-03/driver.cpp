@@ -1,4 +1,16 @@
-//driver.cpp
+/*
+* FILE : driver.cpp
+* PROJECT : PROG1385 - Assignment #3
+* PROGRAMMER : Your Name Here
+* FIRST VERSION : 2024-06-05
+* DESCRIPTION :
+* This file contains the main driver program for the AmFmRadio class. It implements
+* a menu-driven interface that allows users to interact with an AmFmRadio object.
+* The program provides options to toggle power, set volume, switch between AM and FM bands,
+* set and select preset buttons, show current radio settings, scan frequencies up and down,
+* and quit the program. It demonstrates the functionality of the AmFmRadio class
+* in a user-friendly console application.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,8 +43,8 @@ int main()
     int			button_num = 0;
     menuItems	choice = kMenuNothing;
     char		buf[20] = { 0 };
-    AmFmRadio	jazzy(true);
-    bool		on = false;
+    bool		on = true;
+    AmFmRadio	jazzy(on);
 
     cout << "a";
     do
