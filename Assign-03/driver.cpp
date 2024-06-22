@@ -1,7 +1,7 @@
 /*
 * FILE : driver.cpp
 * PROJECT : PROG1385 - Assignment #3
-* PROGRAMMER : Your Name Here
+* PROGRAMMER : Tian Yang
 * FIRST VERSION : 2024-06-05
 * DESCRIPTION :
 * This file contains the main driver program for the AmFmRadio class. It implements
