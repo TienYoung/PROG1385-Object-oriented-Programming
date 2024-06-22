@@ -60,8 +60,8 @@ void AmFmRadio::PowerToggle()
     }
     else
     {
-        volume = 0;
         previous_volume = volume;
+        volume = 0;
         on = false;
     }
 }
@@ -294,9 +294,9 @@ void AmFmRadio::SetDisplayOutput(bool display)
     display_output = display;
 }
 
-void AmFmRadio::GetCurrentStation(Freqs& station)
+Freqs AmFmRadio::GetCurrentStation()
 {
-    station = current_station;
+    return current_station;
 }
 
 int AmFmRadio::GetCurrentVolume()

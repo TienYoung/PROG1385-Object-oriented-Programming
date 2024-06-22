@@ -60,7 +60,7 @@ public:
 
     void SetDisplayOutput(bool display);
 
-    void GetCurrentStation(Freqs& station);
+    Freqs GetCurrentStation();
 
     int GetCurrentVolume();
 
