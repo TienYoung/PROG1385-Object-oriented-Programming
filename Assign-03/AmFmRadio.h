@@ -59,14 +59,14 @@ public:
     ~AmFmRadio();
 
     //sets on to true
-    void PowerToggle();
+    void PowerToggle(void);
 
     //returns a true if the radio is currently powered on, and false if the radio is in
     //the off position
-    bool IsRadioOn();
+    bool IsRadioOn(void) const;
 
     //toggles frequency between AM and FM and sets current station
-    void ToggleBand();
+    void ToggleBand(void);
 
     //sets button (radio preset) with current station by being passed a button number
     int SetPresetButton(int button_num);
@@ -75,19 +75,19 @@ public:
     int SelectPresetButton(int button_num);
 
     //sets volume
-    int SetVolume();
+    int SetVolume(void);
 
     //sets volume with specify value
     int SetVolume(int volume);
 
     //shows volume, button settings, current station, AM or FM
-    void ShowCurrentSettings();
+    void ShowCurrentSettings(void);
 
     //changes frequency up in increments of .2 for FM, 10 for AM
-    void ScanUp();
+    void ScanUp(void);
 
     //changes frequency up in decrements of .2 for FM, 10 for AM
-    void ScanDown();
+    void ScanDown(void);
 
     //sets the current station to the specified frequency if valid
     bool SetCurrentStation(double station);
@@ -96,18 +96,18 @@ public:
     void SetDisplayOutput(bool display);
 
     //returns the current station frequency
-    Freqs GetCurrentStation();
+    Freqs GetCurrentStation(void) const;
 
     //returns the current volume level
-    int GetCurrentVolume();
+    int GetCurrentVolume(void) const;
 
     //retrieves the frequencies stored in all preset buttons
-    void GetRadioPresets(Freqs presets[5]);
+    void GetRadioPresets(Freqs presets[5]) const;
 
     //retrieves the current radio band (AM or FM)
-    void GetCurrentBand(char band[3]);
+    void GetCurrentBand(char band[3]) const;
 
     //returns true if display output is enabled, false otherwise
-    bool GetDisplayOutput();
+    bool GetDisplayOutput(void) const;
 };
 #endif

@@ -101,7 +101,7 @@ AmFmRadio::~AmFmRadio()
 * RETURNS :
 *   void
 */
-void AmFmRadio::PowerToggle()
+void AmFmRadio::PowerToggle(void)
 {
     if (on == false)
     {
@@ -125,7 +125,7 @@ void AmFmRadio::PowerToggle()
 * RETURNS :
 *   bool : true if the radio is on, false if it's off
 */
-bool AmFmRadio::IsRadioOn()
+bool AmFmRadio::IsRadioOn(void) const
 {
     return on;
 }
@@ -139,7 +139,7 @@ bool AmFmRadio::IsRadioOn()
 * RETURNS :
 *   int : new volume level or status code
 */
-int AmFmRadio::SetVolume()
+int AmFmRadio::SetVolume(void)
 {
     char buf[20] = "";
 
@@ -186,7 +186,7 @@ int AmFmRadio::SetVolume(int volume)
 * RETURNS :
 *   void
 */
-void AmFmRadio::ToggleBand()
+void AmFmRadio::ToggleBand(void)
 {
     if (strcmp(band, "AM") == 0)
     {
@@ -258,7 +258,7 @@ int AmFmRadio::SelectPresetButton(int button_num)
 * RETURNS :
 *   void
 */
-void AmFmRadio::ShowCurrentSettings()
+void AmFmRadio::ShowCurrentSettings(void)
 {
 
     if (on == true)
@@ -302,7 +302,7 @@ void AmFmRadio::ShowCurrentSettings()
 * RETURNS :
 *   void
 */
-void AmFmRadio::ScanUp()
+void AmFmRadio::ScanUp(void)
 {
     if (strcmp("AM", band) == 0)
     {
@@ -344,7 +344,7 @@ void AmFmRadio::ScanUp()
 * RETURNS :
 *   void
 */
-void AmFmRadio::ScanDown()
+void AmFmRadio::ScanDown(void)
 {
     if (strcmp("AM", band) == 0)
     {
@@ -431,7 +431,7 @@ void AmFmRadio::SetDisplayOutput(bool display)
 * RETURNS :
 *   Freqs : the current station frequency
 */
-Freqs AmFmRadio::GetCurrentStation()
+Freqs AmFmRadio::GetCurrentStation(void) const
 {
     return current_station;
 }
@@ -445,7 +445,7 @@ Freqs AmFmRadio::GetCurrentStation()
 * RETURNS :
 *   int : the current volume level
 */
-int AmFmRadio::GetCurrentVolume()
+int AmFmRadio::GetCurrentVolume(void) const
 {
     return volume;
 }
@@ -459,7 +459,7 @@ int AmFmRadio::GetCurrentVolume()
 * RETURNS :
 *   void
 */
-void AmFmRadio::GetRadioPresets(Freqs presets[5])
+void AmFmRadio::GetRadioPresets(Freqs presets[5]) const
 {
     if (presets == nullptr)
         return;
@@ -476,7 +476,7 @@ void AmFmRadio::GetRadioPresets(Freqs presets[5])
 * RETURNS :
 *   void
 */
-void AmFmRadio::GetCurrentBand(char band[3])
+void AmFmRadio::GetCurrentBand(char band[3]) const
 {
     if (band == nullptr) 
         return;
@@ -495,7 +495,7 @@ void AmFmRadio::GetCurrentBand(char band[3])
 * RETURNS :
 *   bool : true if display output is enabled, false otherwise
 */
-bool AmFmRadio::GetDisplayOutput()
+bool AmFmRadio::GetDisplayOutput(void) const
 {
     return display_output;
 }
