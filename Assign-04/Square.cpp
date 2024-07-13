@@ -10,6 +10,11 @@ Square::Square(std::string_view colour, float sideLength) :Shape("Square", colou
         m_sideLength = 0.0f;
 }
 
+Square::~Square(void)
+{
+    std::cout << "The square is broken ...\n" << std::endl;
+}
+
 void Square::Show(void) const
 {
     std::cout << std::format(

@@ -14,7 +14,7 @@ Circle::Circle(std::string_view colour, float radius) :Shape("Circle", colour)
 
 Circle::~Circle(void)
 {
-    std::cout << "The circle is broken …\n" << std::endl;
+    std::cout << "The circle is broken ...\n" << std::endl;
 }
 
 void Circle::Show(void) const

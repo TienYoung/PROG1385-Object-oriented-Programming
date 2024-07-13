@@ -19,6 +19,9 @@ public:
     /// \param sideLength The side length of the square.
     Square(std::string_view colour, float sideLength);
 
+    /// \brief Destructor.
+    ~Square(void);
+
     /// \brief Function to display square information.
     void Show(void) const override;
 
