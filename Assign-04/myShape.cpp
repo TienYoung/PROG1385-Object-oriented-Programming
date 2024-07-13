@@ -3,17 +3,35 @@
 
 int main(void)
 {
-    std::vector<Shape*> shapes;
-    shapes.push_back(new Circle("red", 3.56f));
-    shapes.push_back(new Square("blue", 10.5f));
+    Circle* circle = nullptr;
+    Square* square = nullptr;
 
-    for (const Shape* shape : shapes)
-    {
-        shape->Show();
-        delete shape;
-    }
+    std::string colour = "";
+    float size = 0.0f;
 
-    shapes.clear();
+    std::cout << "Enter the circle's colour: ";
+    std::getline(std::cin, colour);
+
+    std::cout << "Enter the circle's radius: ";
+    std::cin >> size;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Flush user input
+
+    circle = new Circle(colour, size);
+
+    std::cout << "Enter the square's colour: ";
+    std::getline(std::cin, colour);
+
+    std::cout << "Enter the square's side-length: ";
+    std::cin >> size;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Flush user input
+
+    square = new Square(colour, size);
+
+    circle->Show();
+    delete circle;
+
+    square->Show();
+    delete square;
 
     return 0;
 }

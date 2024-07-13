@@ -12,7 +12,7 @@ Shape::Shape(std::string_view name, std::string_view colour)
     if (SetName(name) == false)
         m_name = "Unknown";
     if (SetColour(colour) == false)
-        m_colour = "Unknown";
+        m_colour = "undefined";
 }
 
 void Shape::Show() const
