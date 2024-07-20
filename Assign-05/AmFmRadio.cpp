@@ -1,8 +1,8 @@
 /*
 * FILE : AmFmRadio.cpp
-* PROJECT : PROG1385 - Assignment #3
+* PROJECT : PROG1385 - Assignment #5
 * PROGRAMMER : Tian Yang
-* FIRST VERSION : 2024-06-05
+* FIRST VERSION : 2024-07-20
 * DESCRIPTION :
 * This file contains the implementation of the AmFmRadio class. It provides
 * functionality for a simulated AM/FM radio, including power control,
@@ -18,6 +18,17 @@
 #include <stdlib.h>
 #include "AmFmRadio.h"
 
+/*
+* FUNCTION : clamp
+* DESCRIPTION :
+*   Constrains a value to lie between a minimum and maximum range.
+* PARAMETERS :
+*   T x   - The value to be clamped.
+*   T min - The minimum allowable value.
+*   T max - The maximum allowable value.
+* RETURNS :
+*   T     - The clamped value within the specified range.
+*/
 template<typename T>
 inline T clamp(T x, T min, T max)
 {

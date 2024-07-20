@@ -1,8 +1,8 @@
 /*
 * FILE : AmFmRadio.h
-* PROJECT : PROG1385 - Assignment #3
+* PROJECT : PROG1385 - Assignment #5
 * PROGRAMMER : Tian Yang
-* FIRST VERSION : 2024-06-05
+* FIRST VERSION : 2024-07-20
 * DESCRIPTION :
 * This is a header file for the AmFmRadio class. It defines the structure and
 * interface for a simulated AM/FM radio, including functionality for power
