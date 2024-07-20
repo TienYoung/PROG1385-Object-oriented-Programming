@@ -14,7 +14,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "AmFmRadio.h"
+#include <conio.h>
+#include "PioneerCarRadio.h"
 
 #include <iostream>
 using namespace std;
@@ -40,37 +41,22 @@ int main()
 {
     int			volume_OK = 0;
     int			button_OK = 0;
-    int			button_num = 0;
     menuItems	choice = kMenuNothing;
-    char		buf[20] = { 0 };
     bool		on = true;
-    AmFmRadio	jazzy(on);
+    PioneerCarRadio	jazzy;
 
-    cout << "a";
     do
     {
-        printf("\n\nMAIN MENU\n");
-        printf("=========\n\n");
-        printf("1.  Toggle Power\n");
-        printf("2.  Set Volume\n");
-        printf("3.  Toggle AM / FM Band\n");
-        printf("4.  Set a Preset Button \n");
-        printf("5.  Select a Preset Button \n");
-        printf("6.  Show Current Settings\n");
-        printf("7.  Scan Up \n");
-        printf("8.  Scan Down \n");
-        printf("9.  Quit the Program\n");
-        printf("\nMake a selection from the menu\n");
-        fgets(buf, sizeof buf, stdin);
-        choice = (menuItems)atoi(buf);
+        int key = _getch();
 
-        switch (choice)
+        switch (key)
         {
-        case kMenuTogglePower:
+        case 'o':
             jazzy.PowerToggle();
+            jazzy.ShowCurrentSettings();
             break;
-        case kMenuSetVolume:
-            volume_OK = jazzy.SetVolume();
+        case '+':
+            volume_OK = jazzy.SetVolume(jazzy.GetCurrentVolume() + 1);
             if (volume_OK == VolumeStatus::MUTE)
             {
                 printf("\nVolume was set to 0.");
@@ -79,9 +65,47 @@ int main()
             {
                 printf("\nVolume was set to 100.");
             }
+            jazzy.ShowCurrentSettings();
             break;
+        case '_':
+            volume_OK = jazzy.SetVolume(jazzy.GetCurrentVolume() - 1);
+            if (volume_OK == VolumeStatus::MUTE)
+            {
+                printf("\nVolume was set to 0.");
+            }
+            else if (volume_OK == VolumeStatus::FULL)
+            {
+                printf("\nVolume was set to 100.");
+            }
+            jazzy.ShowCurrentSettings();
+            break;
+        case '=':
+            on = jazzy.IsRadioOn();
+            if (on)
+            {
+                jazzy.ScanUp();
+            }
+            else
+            {
+                printf("\nYou must turn the radio on before you can use the scan button!\n");
 
-        case kMenuToggleAMFM:
+            }
+            jazzy.ShowCurrentSettings();
+            break;
+        case '-':
+            on = jazzy.IsRadioOn();
+            if (on)
+            {
+                jazzy.ScanDown();
+            }
+            else
+            {
+                printf("\nYou must turn the radio on before you can use the scan button!\n");
+
+            }
+            jazzy.ShowCurrentSettings();
+            break;
+        case 'b':
             on = jazzy.IsRadioOn();
             if (on)
             {
@@ -93,81 +117,114 @@ int main()
                 printf("\nThe radio must be turned on before the "
                     "band can be toggled!");
             }
-            break;
-        case kMenuSetButton:
-            on = jazzy.IsRadioOn();
-            if (on)
-            {
-                printf("\nWhich button do you want to set?");
-                fgets(buf, sizeof buf, stdin);
-                button_num = atoi(buf) - 1;
-                button_OK = jazzy.SetPresetButton(button_num);
-                if (button_OK == 0)
-                {
-                    printf("\nYou entered an invalid button number!");
-                }
-            }
-            else
-            {
-                printf("\nYou must turn the radio on before you set the buttons!\n");
-            }
-            break;
-        case kMenuSelectButton:
-            on = jazzy.IsRadioOn();
-            if (on)
-            {
-                printf("\nEnter the number of the preset button: ");
-                fgets(buf, 20, stdin);
-                button_num = atoi(buf) - 1;
-                button_OK = jazzy.SelectPresetButton(button_num);
-                if (button_OK == 0)
-                {
-                    printf("\nYou entered an invalid button number!");
-                }
-            }
-            else
-            {
-                printf("\nYou must turn the radio on before you set the buttons!\n");
-            }
-            break;
-        case kMenuShowCurrentSettings:
             jazzy.ShowCurrentSettings();
             break;
-        case kMenuScanUp:
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
             on = jazzy.IsRadioOn();
             if (on)
             {
-                jazzy.ScanUp();
+                button_OK = jazzy.SelectPresetButton(key - '0');
+                if (button_OK == 0)
+                {
+                    printf("\nYou entered an invalid button number!");
+                }
             }
             else
             {
-                printf("\nYou must turn the radio on before you can use the scan button!\n");
-
+                printf("\nYou must turn the radio on before you set the buttons!\n");
             }
+            jazzy.ShowCurrentSettings();
             break;
-        case kMenuScanDown:
+        case '!':
             on = jazzy.IsRadioOn();
             if (on)
             {
-                jazzy.ScanDown();
+                button_OK = jazzy.SetPresetButton(1);
+                if (button_OK == 0)
+                {
+                    printf("\nYou entered an invalid button number!");
+                }
             }
             else
             {
-                printf("\nYou must turn the radio on before you can use the scan button!\n");
-
+                printf("\nYou must turn the radio on before you set the buttons!\n");
             }
+            jazzy.ShowCurrentSettings();
             break;
-        case kMenuQuit:
+        case '@':
+            on = jazzy.IsRadioOn();
+            if (on)
+            {
+                button_OK = jazzy.SetPresetButton(2);
+                if (button_OK == 0)
+                {
+                    printf("\nYou entered an invalid button number!");
+                }
+            }
+            else
+            {
+                printf("\nYou must turn the radio on before you set the buttons!\n");
+            }
+            jazzy.ShowCurrentSettings();
             break;
+        case '#':
+            on = jazzy.IsRadioOn();
+            if (on)
+            {
+                button_OK = jazzy.SetPresetButton(3);
+                if (button_OK == 0)
+                {
+                    printf("\nYou entered an invalid button number!");
+                }
+            }
+            else
+            {
+                printf("\nYou must turn the radio on before you set the buttons!\n");
+            }
+            jazzy.ShowCurrentSettings();
+            break;
+        case '$':
+            on = jazzy.IsRadioOn();
+            if (on)
+            {
+                button_OK = jazzy.SetPresetButton(4);
+                if (button_OK == 0)
+                {
+                    printf("\nYou entered an invalid button number!");
+                }
+            }
+            else
+            {
+                printf("\nYou must turn the radio on before you set the buttons!\n");
+            }
+            jazzy.ShowCurrentSettings();
+            break;
+        case '%':
+            on = jazzy.IsRadioOn();
+            if (on)
+            {
+                button_OK = jazzy.SetPresetButton(5);
+                if (button_OK == 0)
+                {
+                    printf("\nYou entered an invalid button number!");
+                }
+            }
+            else
+            {
+                printf("\nYou must turn the radio on before you set the buttons!\n");
+            }
+            jazzy.ShowCurrentSettings();
+            break;
+        case 'x':
+            choice = kMenuQuit;
         default:
-            printf("You have entered an invalid selection. Please make \n"
-                "another selection.\n");
             break;
 
-        }
-
-        if ((choice != kMenuShowCurrentSettings) && (choice != kMenuQuit))
-            jazzy.ShowCurrentSettings();
+        } 
 
     } while (choice != kMenuQuit);
 
