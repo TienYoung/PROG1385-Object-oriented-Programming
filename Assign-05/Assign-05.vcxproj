@@ -128,7 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AmFmRadio.cpp" />
-    <ClCompile Include="driver.cpp" />
+    <ClCompile Include="carDriver.cpp" />
     <ClCompile Include="PioneerCarRadio.cpp" />
   </ItemGroup>
   <ItemGroup>

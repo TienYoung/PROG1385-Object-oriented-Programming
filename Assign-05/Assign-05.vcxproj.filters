@@ -18,7 +18,7 @@
     <ClCompile Include="AmFmRadio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="driver.cpp">
+    <ClCompile Include="carDriver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PioneerCarRadio.cpp">
