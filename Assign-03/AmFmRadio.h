@@ -14,6 +14,19 @@
 #ifndef _AMFMRADIO_H
 #define _AMFMRADIO_H
 
+#define AM_MIN    530
+#define AM_MAX   1700
+#define AM_STEP    10
+
+#define FM_MIN   87.9
+#define FM_MAX  107.9
+#define FM_STEP   0.2
+
+#define VOL_MIN     0
+#define VOL_MAX   100
+
+enum VolumeStatus{ MUTE = 0, OK = 1, FULL = 2 };
+
 /*
 * NAME : Freqs
 * PURPOSE : The Freqs struct represents a radio frequency. This
@@ -23,9 +36,8 @@
 struct Freqs
 {
     int AMFreq;
-    float FMFreq;
+    double FMFreq;
 };
-
 
 /*
 * NAME : AmFmRadio

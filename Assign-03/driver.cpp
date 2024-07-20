@@ -71,11 +71,11 @@ int main()
             break;
         case kMenuSetVolume:
             volume_OK = jazzy.SetVolume();
-            if (volume_OK == 0)
+            if (volume_OK == VolumeStatus::MUTE)
             {
                 printf("\nVolume was set to 0.");
             }
-            else if (volume_OK == 2)
+            else if (volume_OK == VolumeStatus::FULL)
             {
                 printf("\nVolume was set to 100.");
             }

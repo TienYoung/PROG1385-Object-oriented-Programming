@@ -18,6 +18,12 @@
 #include <stdlib.h>
 #include "AmFmRadio.h"
 
+template<typename T>
+inline T clamp(T x, T min, T max)
+{
+    return x < min ? min : (x > max ? max : x);
+}
+
 /*
 * FUNCTION : AmFmRadio (constructor)
 * DESCRIPTION :
@@ -33,14 +39,14 @@ AmFmRadio::AmFmRadio(bool on /*= false*/)
 {
     for (int i = 0; i < 5; ++i)
     {
-        button[i].AMFreq = 530;
+        button[i].AMFreq = AM_MIN;
     }
     for (int j = 0; j < 5; ++j)
     {
-        button[j].FMFreq = 87.9f;
+        button[j].FMFreq = FM_MIN;
     }
-    current_station.AMFreq = 530;
-    current_station.FMFreq = 87.9f;
+    current_station.AMFreq = AM_MIN;
+    current_station.FMFreq = FM_MIN;
     strcpy_s(band, sizeof(band), "AM");
     volume = 0;
     previous_volume = 0;
@@ -63,14 +69,14 @@ AmFmRadio::AmFmRadio(bool on, Freqs preset[5])
 {
     for (int i = 0; i < 5; ++i)
     {
-        button[i].AMFreq = preset[i].AMFreq;
+        button[i].AMFreq = clamp(preset[i].AMFreq, AM_MIN, AM_MAX);
     }
     for (int j = 0; j < 5; ++j)
     {
-        button[j].FMFreq = preset[j].FMFreq;
+        button[j].FMFreq = clamp(preset[j].FMFreq, FM_MIN, FM_MAX);
     }
-    current_station.AMFreq = 530;
-    current_station.FMFreq = 87.9f;
+    current_station.AMFreq = AM_MIN;
+    current_station.FMFreq = FM_MIN;
     strcpy_s(band, sizeof(band), "AM");
     volume = 0;
     previous_volume = 0;
@@ -141,6 +147,8 @@ bool AmFmRadio::IsRadioOn(void) const
 */
 int AmFmRadio::SetVolume(void)
 {
+    if (!on) return VolumeStatus::MUTE;
+
     char buf[20] = "";
 
     printf("\nEnter the volume level (0 - 100). ");
@@ -161,20 +169,22 @@ int AmFmRadio::SetVolume(void)
 */
 int AmFmRadio::SetVolume(int volume)
 {
+    if (!on) return VolumeStatus::MUTE;
+
     this->volume = volume;
-    if (this->volume < 0) //if user enters volume less than 0, volume = 0
+    if (this->volume < VOL_MIN) //if user enters volume less than 0, volume = 0
     {
-        this->volume = 0;
-        return 0;
+        this->volume = VOL_MIN;
+        return VolumeStatus::MUTE;
     }
 
-    if (this->volume > 100) //if user enters volume greater than 100, volume = 100
+    if (this->volume > VOL_MAX) //if user enters volume greater than 100, volume = 100
     {
-        this->volume = 100;
-        return 2;
+        this->volume = VOL_MAX;
+        return VolumeStatus::FULL;
     }
 
-    return 1;
+    return VolumeStatus::OK;
 }
 
 /*
@@ -211,7 +221,14 @@ int AmFmRadio::SetPresetButton(int button_num)
 {
     if ((button_num >= 0) && (button_num <= 4))
     {
-        button[button_num] = GetCurrentStation();
+        if (strcmp("AM", band) == 0)
+        {
+            button[button_num].AMFreq = GetCurrentStation().AMFreq;
+        }
+        else
+        {
+            button[button_num].FMFreq = GetCurrentStation().FMFreq;
+        }
         return 1;
 
     }
@@ -307,13 +324,13 @@ void AmFmRadio::ScanUp(void)
     if (strcmp("AM", band) == 0)
     {
         //if current_station is 1700, the current_station becomes 530
-        if (current_station.AMFreq == 1700)
+        if (current_station.AMFreq == AM_MAX)
         {
-            current_station.AMFreq = 530;
+            current_station.AMFreq = AM_MIN;
         }
         else
         {
-            current_station.AMFreq = current_station.AMFreq + 10;
+            current_station.AMFreq = current_station.AMFreq + AM_STEP;
         }
         if (display_output)
             printf("\nCurrent station: %d %s\n", current_station.AMFreq, band);
@@ -322,13 +339,13 @@ void AmFmRadio::ScanUp(void)
     {
         //if the current_station is 107.9, the current_station becomes 87.9
         //Note: car radios jump .2 for the FM. That's how it's modeled here.
-        if (current_station.FMFreq >= 107.9)
+        if (current_station.FMFreq >= FM_MAX)
         {
-            current_station.FMFreq = 87.9f;
+            current_station.FMFreq = FM_MIN;
         }
         else
         {
-            current_station.FMFreq = current_station.FMFreq + .2f;
+            current_station.FMFreq = current_station.FMFreq + FM_STEP;
         }
         if (display_output)
             printf("\nCurrent station: %f %s\n", current_station.FMFreq, band);
@@ -349,13 +366,13 @@ void AmFmRadio::ScanDown(void)
     if (strcmp("AM", band) == 0)
     {
         //if current_station is 530, the current_station becomes 1700
-        if (current_station.AMFreq == 530)
+        if (current_station.AMFreq == AM_MIN)
         {
-            current_station.AMFreq = 1700;
+            current_station.AMFreq = AM_MAX;
         }
         else
         {
-            current_station.AMFreq = current_station.AMFreq - 10;
+            current_station.AMFreq = current_station.AMFreq - AM_STEP;
         }
         if (display_output)
             printf("\nCurrent station: %d %s\n", current_station.AMFreq, band);
@@ -364,13 +381,13 @@ void AmFmRadio::ScanDown(void)
     {
         //if the current_station is 87.9, the current_station becomes 107.9
         //Note: car radios jump .2 for the FM. That's how it's modeled here.
-        if (current_station.FMFreq <= 87.9f)
+        if (current_station.FMFreq <= FM_MIN)
         {
-            current_station.FMFreq = 107.9f;
+            current_station.FMFreq = FM_MAX;
         }
         else
         {
-            current_station.FMFreq = current_station.FMFreq - .2f;
+            current_station.FMFreq = current_station.FMFreq - FM_STEP;
         }
         if (display_output)
             printf("\nCurrent station: %f %s\n", current_station.FMFreq, band);
@@ -390,7 +407,7 @@ bool AmFmRadio::SetCurrentStation(double station)
 {
     if (strcmp("AM", band) == 0)
     {
-        if (station >= 530 && station <= 1700)
+        if (station >= AM_MIN && station <= AM_MAX)
         {
             current_station.AMFreq = static_cast<int>(station);
             return true;
@@ -398,9 +415,9 @@ bool AmFmRadio::SetCurrentStation(double station)
     }
     else
     {
-        if (station >= 87.9 && station <= 107.9)
+        if (station >= FM_MIN && station <= FM_MAX)
         {
-            current_station.FMFreq = static_cast<float>(station);
+            current_station.FMFreq = station;
             return true;
         }
     }
