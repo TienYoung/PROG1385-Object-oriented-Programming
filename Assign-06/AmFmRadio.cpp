@@ -18,6 +18,17 @@
 #include <stdlib.h>
 #include "AmFmRadio.h"
 
+#define AM_MIN    530
+#define AM_MAX   1700
+#define AM_STEP    10
+
+#define FM_MIN   87.9
+#define FM_MAX  107.9
+#define FM_STEP   0.2
+
+#define VOL_MIN     0
+#define VOL_MAX   100
+
 /*
 * FUNCTION : clamp
 * DESCRIPTION :
@@ -104,7 +115,7 @@ AmFmRadio::AmFmRadio(bool on, Freqs preset[5])
 * RETURNS :
 *   None (destructor)
 */
-AmFmRadio::~AmFmRadio()
+AmFmRadio::~AmFmRadio(void)
 {
     printf("Destroying AmFmRadio\n");
 }
@@ -207,7 +218,7 @@ int AmFmRadio::SetVolume(int volume)
 * RETURNS :
 *   void
 */
-void AmFmRadio::ToggleBand(void)
+void AmFmRadio::ToggleFrequency(void)
 {
     if (strcmp(band, "AM") == 0)
     {

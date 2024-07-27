@@ -34,6 +34,10 @@
 #define SET_FIVE     '%'
 #define EXIT         'x'
 
+PioneerCarRadio::PioneerCarRadio(void) : AmFmRadio(false)
+{
+}
+
 /*
 * FUNCTION : ~PioneerCarRadio (destructor)
 * DESCRIPTION :
@@ -45,7 +49,13 @@
 */
 PioneerCarRadio::~PioneerCarRadio()
 {
-    printf("Destroying PioneerCarRadio\n");
+    printf("Destroying %s Radio\n", GetName());
+}
+
+
+const char* PioneerCarRadio::GetName(void)
+{
+    return "Pioneer XS440";
 }
 
 /*
@@ -59,12 +69,12 @@ PioneerCarRadio::~PioneerCarRadio()
 * RETURNS :
 *   void
 */
-void PioneerCarRadio::HandleKeystroke(void)
+void PioneerCarRadio::ProcessUserKeyStroke(void)
 {
     while(true)
     {
         system("cls");
-        printf("Pioneer XS440\n");
+        printf("%s\n", GetName());
         if (IsRadioOn())
         {
             printf("Radio is on\n");
@@ -120,7 +130,7 @@ void PioneerCarRadio::HandleKeystroke(void)
             break;
         case SWITCH_BAND:
             if (IsRadioOn())
-                ToggleBand();
+                ToggleFrequency();
             break;
         case CHOOSE_ONE:
             if (IsRadioOn())

@@ -23,12 +23,16 @@
 class PioneerCarRadio : public AmFmRadio
 {
 public:
+	//constructors
+	PioneerCarRadio(void);
 	//destruction
-	~PioneerCarRadio();
+	virtual ~PioneerCarRadio(void);
+
+	virtual const char* GetName(void);
 
     //processes user keystrokes to interact with the radio, handling input 
     //to control the radio functions such as changing stations, adjusting volume, 
     //and toggling power
-	void HandleKeystroke(void);
+	virtual void ProcessUserKeyStroke(void);
 };
 

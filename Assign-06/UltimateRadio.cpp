@@ -9,13 +9,45 @@
 *   to interact with the radio functionalities.
 */
 
-#include "PioneerCarRadio.h"
+#include "PioneerWorld.h"
 
-int main(void)
+PioneerCarRadio* createRadio(const char* type);
+
+enum Arguments { PROGRAM_NAME, FIRST_ARGUMENT, ARGUMENTS_NUM };
+
+int main(int argc, char* argv[])
 {
-    PioneerCarRadio	pioneer_XS440;
+    if (argc < ARGUMENTS_NUM)
+    {
+        return 0;
+    }
 
-    pioneer_XS440.HandleKeystroke();
+    PioneerCarRadio* radio = nullptr;
+
+    radio = createRadio(argv[FIRST_ARGUMENT]);
+
+    if (radio)
+    {
+        radio->ProcessUserKeyStroke();
+    }
 
     return 0;
+}
+
+PioneerCarRadio* createRadio(const char* type)
+{
+	if (strcmp(type, "-car") == 0)
+	{
+		return new PioneerCarRadio();
+	}
+	else if (strcmp(type, "-am") == 0)
+	{
+		return new PioneerAM();
+	}
+	else if (strcmp(type, "-world") == 0)
+	{
+		return new PioneerWorld();
+	}
+
+	return nullptr;
 }

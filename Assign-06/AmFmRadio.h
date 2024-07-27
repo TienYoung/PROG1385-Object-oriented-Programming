@@ -14,18 +14,9 @@
 #ifndef _AMFMRADIO_H
 #define _AMFMRADIO_H
 
-#define AM_MIN    530
-#define AM_MAX   1700
-#define AM_STEP    10
-
-#define FM_MIN   87.9
-#define FM_MAX  107.9
-#define FM_STEP   0.2
-
-#define VOL_MIN     0
-#define VOL_MAX   100
-
 enum VolumeStatus{ MUTE = 0, OK = 1, FULL = 2 };
+
+enum class BandMod { AM, FM };
 
 /*
 * NAME : Freqs
@@ -49,7 +40,7 @@ struct Freqs
 */
 class AmFmRadio
 {
-private:
+protected:
     Freqs	button[5];
     Freqs	current_station;
     char	band[3];
@@ -62,13 +53,13 @@ public:
     //sets the each button to the lowest frequency, sets the current station, sets the
     //frequency to AM, sets the volume to 0 and sets on to false
     AmFmRadio(bool on = false);
-    
+
     //sets the each button to the presets, sets the current station, sets the
     //frequency to AM, sets the volume to 0
     AmFmRadio(bool on, Freqs preset[5]);
     
     //print destruction
-    ~AmFmRadio();
+    virtual ~AmFmRadio(void);
 
     //sets on to true
     void PowerToggle(void);
@@ -78,7 +69,7 @@ public:
     bool IsRadioOn(void) const;
 
     //toggles frequency between AM and FM and sets current station
-    void ToggleBand(void);
+    virtual void ToggleFrequency(void);
 
     //sets button (radio preset) with current station by being passed a button number
     int SetPresetButton(int button_num);
@@ -96,10 +87,10 @@ public:
     void ShowCurrentSettings(void);
 
     //changes frequency up in increments of .2 for FM, 10 for AM
-    void ScanUp(void);
+    virtual void ScanUp(void);
 
     //changes frequency up in decrements of .2 for FM, 10 for AM
-    void ScanDown(void);
+    virtual void ScanDown(void);
 
     //sets the current station to the specified frequency if valid
     bool SetCurrentStation(double station);
