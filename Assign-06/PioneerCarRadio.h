@@ -28,11 +28,14 @@ public:
 	//destruction
 	virtual ~PioneerCarRadio(void);
 
-	virtual const char* GetName(void);
+	const char* GetName(void) const;
 
     //processes user keystrokes to interact with the radio, handling input 
     //to control the radio functions such as changing stations, adjusting volume, 
     //and toggling power
 	virtual void ProcessUserKeyStroke(void);
+
+protected:
+	const char* m_name;
 };
 

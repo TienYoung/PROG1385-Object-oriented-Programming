@@ -11,6 +11,7 @@ class PioneerWorld : public PioneerAM
 public:
 	PioneerWorld(void) : PioneerAM()
 	{
+		m_name = "Pioneer XS440-WRLD";
 		for (int i = 0; i < 5; ++i)
 		{
 			button[i].AMFreq = AM_MIN;
@@ -48,10 +49,4 @@ public:
 			current_station.AMFreq = current_station.AMFreq - AM_STEP;
 		}
 	}
-
-	virtual const char* GetName(void) override
-	{
-		return "Pioneer XS440-WRLD";
-	}
-
 };

@@ -11,6 +11,28 @@
 
 #include "PioneerWorld.h"
 
+#include <stdexcept>
+#include <iostream>
+#include <conio.h>
+
+#define HANDLE_EXCEPTION(expression)                                \
+do{                                                                 \
+    try                                                             \
+    {                                                               \
+        expression;                                                 \
+    }                                                               \
+    catch (const std::invalid_argument& e)                          \
+    {                                                               \
+        std::cerr << "INVALID_ARUGMENT: " << e.what() << std::endl; \
+        return 0;                                                   \
+    }                                                               \
+    catch (const std::bad_alloc& e)                                 \
+    {                                                               \
+        std::cerr << "BAD_ALLOC: " << e.what() << std::endl;        \
+        return 0;                                                   \
+    }                                                               \
+} while(false)                                                     
+
 PioneerCarRadio* createRadio(const char* type);
 
 enum Arguments { PROGRAM_NAME, FIRST_ARGUMENT, ARGUMENTS_NUM };
@@ -22,34 +44,53 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    PioneerCarRadio* radio = nullptr;
+    PioneerCarRadio* pRadio = nullptr;
 
-    radio = createRadio(argv[FIRST_ARGUMENT]);
-
-    if (radio)
+    HANDLE_EXCEPTION(pRadio = createRadio(argv[FIRST_ARGUMENT]));
+    do
     {
-        radio->ProcessUserKeyStroke();
-    }
+        pRadio->ProcessUserKeyStroke();
+        delete pRadio;
+        pRadio = nullptr;
 
-	delete radio;
+        int keystroke = _getch();
+        switch (keystroke)
+        {
+        case 'c':
+            HANDLE_EXCEPTION(pRadio = createRadio("-car"));
+            break;
+        case 'a':
+            HANDLE_EXCEPTION(pRadio = createRadio("-am"));
+            break;
+        case 'w':
+            HANDLE_EXCEPTION(pRadio = createRadio("-world"));
+            break;
+        case 'x':
+            delete pRadio;
+            pRadio = nullptr;
+            break;
+        }
+    } while (pRadio);
 
     return 0;
 }
 
 PioneerCarRadio* createRadio(const char* type)
 {
-	if (strcmp(type, "-car") == 0)
-	{
-		return new PioneerCarRadio();
-	}
-	else if (strcmp(type, "-am") == 0)
-	{
-		return new PioneerAM();
-	}
-	else if (strcmp(type, "-world") == 0)
-	{
-		return new PioneerWorld();
-	}
-
-	return nullptr;
+    if (strcmp(type, "-car") == 0)
+    {
+        return new PioneerCarRadio();
+    }
+    else if (strcmp(type, "-am") == 0)
+    {
+        return new PioneerAM();
+    }
+    else if (strcmp(type, "-world") == 0)
+    {
+        return new PioneerWorld();
+    }
+    else
+    {
+        throw std::invalid_argument("This program only supports -car, -am and -world.\n");
+    }
 }

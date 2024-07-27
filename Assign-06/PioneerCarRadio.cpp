@@ -36,6 +36,7 @@
 
 PioneerCarRadio::PioneerCarRadio(void) : AmFmRadio(false)
 {
+    m_name = "Pioneer XS440";
 }
 
 /*
@@ -53,9 +54,9 @@ PioneerCarRadio::~PioneerCarRadio()
 }
 
 
-const char* PioneerCarRadio::GetName(void)
+const char* PioneerCarRadio::GetName(void) const
 {
-    return "Pioneer XS440";
+    return m_name;
 }
 
 /*
@@ -81,24 +82,28 @@ void PioneerCarRadio::ProcessUserKeyStroke(void)
             printf("Volume: %d\n", GetCurrentVolume());
             char band[3] = "";
             GetCurrentBand(band);
-            if (strcmp("AM", band) == 0)
-                printf("Current Station: %5d %s\n", GetCurrentStation().AMFreq, band);
-            else
-                printf("Current Station: %6.1f %s\n", GetCurrentStation().FMFreq, band);
-            printf("AM Buttons:\n");
             Freqs presets[5] = {};
             GetRadioPresets(presets);
-            for (int i = 0; i < 5; ++i)
+            if (strcmp("AM", band) == 0)
             {
-                printf("%d: %5d, ", i + 1, presets[i].AMFreq);
+                printf("Current Station: %5d %s\n", GetCurrentStation().AMFreq, band);
+                printf("AM Buttons:\n");
+                for (int i = 0; i < 5; ++i)
+                {
+                    printf("%d: %5d, ", i + 1, presets[i].AMFreq);
+                }
+                putchar('\n');
             }
-            putchar('\n');
-            printf("FM Buttons:\n");
-            for (int j = 0; j < 5; ++j)
+            else
             {
-                printf("%d: %5.1f, ", j + 1, presets[j].FMFreq);
+                printf("Current Station: %6.1f %s\n", GetCurrentStation().FMFreq, band);
+                printf("FM Buttons:\n");
+                for (int j = 0; j < 5; ++j)
+                {
+                    printf("%d: %5.1f, ", j + 1, presets[j].FMFreq);
+                }
+                putchar('\n');
             }
-            putchar('\n');
         }
         else
         {

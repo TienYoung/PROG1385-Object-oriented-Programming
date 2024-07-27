@@ -10,6 +10,7 @@ class PioneerAM : public PioneerCarRadio
 public:
 	PioneerAM(void) : PioneerCarRadio()
 	{
+		m_name = "Pioneer XS440-AM";
 		strcpy_s(band, sizeof(band), "AM");
 	}
 
@@ -22,10 +23,4 @@ public:
 	{
 		strcpy_s(band, sizeof(band), "AM");
 	}
-
-	virtual const char* GetName(void) override
-	{
-		return "Pioneer XS440-AM";
-	}
-
 };
