@@ -31,6 +31,8 @@ int main(int argc, char* argv[])
         radio->ProcessUserKeyStroke();
     }
 
+	delete radio;
+
     return 0;
 }
 
