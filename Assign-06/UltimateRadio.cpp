@@ -1,8 +1,8 @@
 /*
 * FILE : carDriver.cpp
-* PROJECT : PROG1385 - Assignment #5
+* PROJECT : PROG1385 - Assignment #6
 * PROGRAMMER : Tian Yang
-* FIRST VERSION : 2024-07-20
+* FIRST VERSION : 2024-07-26
 * DESCRIPTION :
 *   This file contains the main function to drive the PioneerCarRadio class.
 *   It creates an instance of the PioneerCarRadio and processes user keystrokes
@@ -75,6 +75,22 @@ int main(int argc, char* argv[])
     return 0;
 }
 
+/*
+* FUNCTION : createRadio
+* DESCRIPTION :
+*   Creates and returns a pointer to a new radio object based on the specified type.
+*   The function supports creating PioneerCarRadio, PioneerAM, and PioneerWorld objects.
+*   If an unsupported type is specified, an exception is thrown.
+* PARAMETERS :
+*   const char* type : A string specifying the type of radio to create. Supported types are:
+*                      - "-car"   : Creates a PioneerCarRadio object.
+*                      - "-am"    : Creates a PioneerAM object.
+*                      - "-world" : Creates a PioneerWorld object.
+* RETURNS :
+*   PioneerCarRadio* : A pointer to the newly created radio object.
+* THROWS :
+*   std::invalid_argument : If the specified type is not supported.
+*/
 PioneerCarRadio* createRadio(const char* type)
 {
     if (strcmp(type, "-car") == 0)

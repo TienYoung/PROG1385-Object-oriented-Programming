@@ -1,6 +1,6 @@
 /*
 * FILE : PioneerCarRadio.h
-* PROJECT : PROG1385 - Assignment #5
+* PROJECT : PROG1385 - Assignment #6
 * PROGRAMMER : Tian Yang
 * FIRST VERSION : 2024-07-20
 * DESCRIPTION :
@@ -28,6 +28,7 @@ public:
 	//destruction
 	virtual ~PioneerCarRadio(void);
 
+	// Accessor
 	const char* GetName(void) const;
 
     //processes user keystrokes to interact with the radio, handling input 

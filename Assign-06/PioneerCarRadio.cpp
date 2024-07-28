@@ -1,6 +1,6 @@
 /*
 * FILE : PioneerCarRadio.cpp
-* PROJECT : PROG1385 - Assignment #5
+* PROJECT : PROG1385 - Assignment #6
 * PROGRAMMER : Tian Yang
 * FIRST VERSION : 2024-07-20
 * DESCRIPTION :
@@ -53,7 +53,15 @@ PioneerCarRadio::~PioneerCarRadio()
     printf("Destroying %s Radio\n", GetName());
 }
 
-
+/*
+* FUNCTION : GetName
+* DESCRIPTION :
+*   Retrieves the name of the PioneerCarRadio object.
+* PARAMETERS :
+*   None
+* RETURNS :
+*   const char* : A C-string representing the name of the radio.
+*/
 const char* PioneerCarRadio::GetName(void) const
 {
     return m_name;
