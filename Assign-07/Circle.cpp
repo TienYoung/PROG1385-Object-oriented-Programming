@@ -27,9 +27,15 @@ void Circle::Show(void) const
     std::cout << std::left << std::setw(13) << "Radius" << ": " << std::fixed << std::setprecision(2) << GetRadius() << " cm" << std::endl;
     std::cout << std::left << std::setw(13) << "Circumference" << ": " << std::fixed << std::setprecision(2) << Perimeter() << " cm" << std::endl;
     std::cout << std::left << std::setw(13) << "Area" << ": " << std::fixed << std::setprecision(2) << Area() << " square cm" << std::endl;
+    std::cout << std::endl;
 }
 
 float Circle::GetRadius(void) const
+{
+    return m_radius;
+}
+
+float Circle::GetRadius(void)
 {
     return m_radius;
 }
@@ -67,7 +73,7 @@ Circle Circle::operator+(const Circle& other) const
 
 Circle Circle::operator*(const Circle& other) const
 {
-    return { other.GetColour(), this->GetRadius() + other.GetRadius() };
+    return { other.GetColour(), this->GetRadius() * other.GetRadius() };
 }
 
 bool Circle::operator==(const Circle& other) const

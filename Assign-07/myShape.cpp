@@ -1,50 +1,43 @@
 #include "Circle.h"
 #include "Square.h"
 
-#define CHECK_ALLOC(expression)                              \
-do{                                                          \
-    try                                                      \
-    {                                                        \
-        expression;                                          \
-    }                                                        \                                                           \
-    catch (const std::bad_alloc& e)                          \
-    {                                                        \
-        std::cerr << "BAD_ALLOC: " << e.what() << std::endl; \
-        return 0;                                            \
-    }                                                        \
-} while(false)
-
 int main(void)
 {
-    Circle* circle = nullptr;
-    Square* square = nullptr;
+    Circle round1("red", 5.5f);
+    Circle round2("blue", 10.5f);
+    Circle playARound;
 
-    std::string colour = "";
-    float size = 0.0f;
+    Square square1("orange", 5.0f);
+    Square square2("purple", 12.0f);
+    Square playASquare;
 
-    std::cout << "Enter the circle's colour: ";
-    std::getline(std::cin, colour);
+    round1.Show();
+    round2.Show();
+    playARound.Show();
 
-    std::cout << "Enter the circle's radius: ";
-    std::cin >> size;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Flush user input
+    square1.Show();
+    square2.Show();
+    playASquare.Show();
 
-    circle = new Circle(colour, size);
+    playARound = round1 + round2;
+    playASquare = square2 + square1;
+    playARound.Show();
+    playASquare.Show();
 
-    std::cout << "Enter the square's colour: ";
-    std::getline(std::cin, colour);
+    playARound = round1 * round2;
+    playASquare = square2 * square1;
+    playARound.Show();
+    playASquare.Show();
 
-    std::cout << "Enter the square's side-length: ";
-    std::cin >> size;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Flush user input
-
-    square = new Square(colour, size);
-
-    circle->Show();
-    delete circle;
-
-    square->Show();
-    delete square;
+    playARound = round1;
+    if (playARound == round1)
+    {
+        std::cout << "Hurray !!" << std::endl;
+    }
+    else
+    {
+        std::cout << "Awww !!" << std::endl;
+    }
 
     return 0;
 }

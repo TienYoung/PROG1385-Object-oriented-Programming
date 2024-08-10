@@ -29,7 +29,7 @@ public:
     Shape(const std::string& name, const std::string& colour);
 
     /// \brief Virtual function to display shape information.
-    virtual void Show() const;
+    virtual void Show(void) const;
 
     /// \brief Accessor for the name of the shape.
     /// \return The name of the shape.
@@ -38,6 +38,8 @@ public:
     /// \brief Accessor for the colour of the shape.
     /// \return The colour of the shape.
     std::string GetColour(void) const;
+
+    std::string GetColour(void);
 
     /// \brief Mutator for the name of the shape.
     /// \param name The new name of the shape.

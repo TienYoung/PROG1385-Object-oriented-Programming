@@ -28,6 +28,8 @@ public:
     /// \brief Accessor for the side length of the square.
     /// \return The side length of the square.
     float GetSideLength(void) const;
+    
+    float GetSideLength(void);
 
     /// \brief Mutator for the side length of the square.
     /// \param sideLength The new side length of the square.

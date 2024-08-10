@@ -25,9 +25,15 @@ void Square::Show(void) const
     std::cout << std::left << std::setw(13) << "Side-Length" << ": " << std::fixed << std::setprecision(2) << GetSideLength() << " cm" << std::endl;
     std::cout << std::left << std::setw(13) << "Circumference" << ": " << std::fixed << std::setprecision(2) << Perimeter() << " cm" << std::endl;
     std::cout << std::left << std::setw(13) << "Area" << ": " << std::fixed << std::setprecision(2) << Area() << " square cm" << std::endl;
+    std::cout << std::endl;
 }
 
 float Square::GetSideLength(void) const
+{
+    return m_sideLength;
+}
+
+float Square::GetSideLength(void)
 {
     return m_sideLength;
 }
@@ -65,7 +71,7 @@ Square Square::operator+(const Square& other) const
 
 Square Square::operator*(const Square& other) const
 {
-    return { this->GetColour(), this->GetSideLength() * other.GetSideLength() };
+    return { other.GetColour(), this->GetSideLength() * other.GetSideLength() };
 }
 
 bool Square::operator==(const Square& other) const
@@ -84,4 +90,5 @@ Square& Square::operator=(const Square& other)
     this->SetName(other.GetName());
     this->SetColour(other.GetColour());
     this->SetSideLength(other.GetSideLength());
+    return *this;
 }

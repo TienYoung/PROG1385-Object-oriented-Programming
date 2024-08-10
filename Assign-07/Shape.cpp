@@ -32,7 +32,7 @@ Shape::Shape(const std::string& name, const std::string& colour) :m_name("Unknow
     }
 }
 
-void Shape::Show() const
+void Shape::Show(void) const
 {
     std::cout << "Shape Information" << std::endl;
     std::cout << std::left << std::setw(13) << "Name" << ": " << GetName() << std::endl;
@@ -45,6 +45,11 @@ std::string Shape::GetName(void) const
 }
 
 std::string Shape::GetColour(void) const
+{
+    return m_colour;
+}
+
+std::string Shape::GetColour(void)
 {
     return m_colour;
 }

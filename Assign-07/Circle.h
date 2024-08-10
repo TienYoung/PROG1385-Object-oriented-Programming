@@ -29,6 +29,8 @@ public:
     /// \return The radius of the circle.
     float GetRadius(void) const;
 
+    float GetRadius(void);
+
     /// \brief Mutator for the radius of the circle.
     /// \param radius The new radius of the circle.
     /// \return True if the radius is valid, false otherwise.
