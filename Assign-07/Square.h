@@ -36,15 +36,15 @@ public:
 
     /// \brief Function to calculate the perimeter of the square.
     /// \return The perimeter of the square.
-    float Perimeter(void) const override;
+    virtual float Perimeter(void) const override;
 
     /// \brief Function to calculate the area of the square.
     /// \return The area of the square.
-    float Area(void) const override;
+    virtual float Area(void) const override;
 
     /// \brief Function to calculate the overall dimension of the square.
     /// \return The overall dimension of the square.
-    float OverallDimension(void) const override;
+    virtual float OverallDimension(void) const override;
 
 private:
     float m_sideLength; ///< The side length of the square.

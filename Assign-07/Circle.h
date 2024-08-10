@@ -36,15 +36,15 @@ public:
 
     /// \brief Function to calculate the perimeter of the circle.
     /// \return The perimeter of the circle.
-    float Perimeter(void) const override;
+    virtual float Perimeter(void) const override;
 
     /// \brief Function to calculate the area of the circle.
     /// \return The area of the circle.
-    float Area(void) const override;
+    virtual float Area(void) const override;
 
     /// \brief Function to calculate the overall dimension of the circle.
     /// \return The overall dimension of the circle.
-    float OverallDimension(void) const override;
+    virtual float OverallDimension(void) const override;
 
 private:
     float m_radius; ///< The radius of the circle.

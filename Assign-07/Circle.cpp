@@ -2,14 +2,16 @@
 
 #define PI 3.1415926f
 
-Circle::Circle(void) :m_radius(0.0f)
+Circle::Circle(void) :Shape("Circle", "undefined"), m_radius(0.0f)
 {
 }
 
-Circle::Circle(const std::string& colour, float radius) :Shape("Circle", colour)
+Circle::Circle(const std::string& colour, float radius) :Shape("Circle", colour), m_radius(0.0f)
 {
-    if (SetRadius(radius) == false)
-        m_radius = 0.0f;
+    if (radius >= 0.0f)
+    {
+        m_radius = radius;
+    }
 }
 
 Circle::~Circle(void)

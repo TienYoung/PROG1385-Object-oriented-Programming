@@ -7,12 +7,29 @@ Shape::Shape(void) :m_name("Unknown"), m_colour("undefined")
 {
 }
 
-Shape::Shape(const std::string& name, const std::string& colour)
+Shape::Shape(const std::string& name, const std::string& colour) :m_name("Unknown"), m_colour("undefined")
 {
-    if (SetName(name) == false)
-        m_name = "Unknown";
-    if (SetColour(colour) == false)
-        m_colour = "undefined";
+    if (name.size() <= MAX_NAME_LEN)
+    {
+        for (size_t i = 0; i < ALLOWED_NAME_NUM; i++)
+        {
+            if (name == s_allowedName[i])
+            {
+                m_name = name;
+            }
+        }
+    }
+
+    if (colour.size() <= MAX_COLOUR_LEN)
+    {
+        for (size_t i = 0; i < DEFINED_COLOUR_NUM; i++)
+        {
+            if (colour == s_definedColour[i])
+            {
+                m_colour = colour;
+            }
+        }
+    }
 }
 
 void Shape::Show() const

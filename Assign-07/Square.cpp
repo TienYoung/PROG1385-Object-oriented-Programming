@@ -1,13 +1,15 @@
 #include "Square.h"
 
-Square::Square(void) :m_sideLength(0.0f)
+Square::Square(void) :Shape("Square", "undefined"), m_sideLength(0.0f)
 {
 }
 
-Square::Square(const std::string& colour, float sideLength) :Shape("Square", colour)
+Square::Square(const std::string& colour, float sideLength) :Shape("Square", colour), m_sideLength(0.0f)
 {
-    if (SetSideLength(sideLength) == false)
-        m_sideLength = 0.0f;
+    if (sideLength >= 0.0f)
+    {
+        m_sideLength = sideLength;
+    }
 }
 
 Square::~Square(void)
