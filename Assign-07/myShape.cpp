@@ -1,3 +1,15 @@
+/*
+* FILE : myShape.cpp
+* PROJECT : PROG1385 - Assignment #7
+* PROGRAMMER : Tian Yang
+* FIRST VERSION : 2024-08-10
+* DESCRIPTION :
+* This file contains the main function and serves as the entry point for the program.
+* It demonstrates the usage of the Circle and Square classes, creating instances of
+* these shapes, manipulating them using overloaded operators, and displaying their
+* properties. The file showcases the functionality implemented in the Shape hierarchy.
+*/
+
 #include "Circle.h"
 #include "Square.h"
 

@@ -1,3 +1,16 @@
+/*
+* FILE : Shape.cpp
+* PROJECT : PROG1385 - Assignment #7
+* PROGRAMMER : Tian Yang
+* FIRST VERSION : 2024-08-10
+* DESCRIPTION :
+* This file contains the implementation of the Shape class. It provides
+* functionality for managing basic properties of shapes such as name and color,
+* as well as utility functions for displaying shape information. The class
+* serves as a base for more specific shape classes and includes methods for
+* setting and getting shape properties within defined constraints.
+*/
+
 #include "Shape.h"
 
 std::string Shape::s_allowedName[ALLOWED_NAME_NUM] = { "Circle", "Square", "Unknown" };

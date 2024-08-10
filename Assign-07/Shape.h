@@ -1,9 +1,23 @@
+/*
+* FILE : Shape.h
+* PROJECT : PROG1385 - Assignment #7
+* PROGRAMMER : Tian Yang
+* FIRST VERSION : 2024-08-10
+* DESCRIPTION :
+* This is the header file for the Shape class. It defines the abstract base class
+* for all shapes, providing common attributes like name and color, and declaring
+* pure virtual functions for calculating perimeter, area, and overall dimension.
+* The file also includes necessary preprocessor directives and constant definitions
+* used across the shape hierarchy.
+*/
+
 #pragma once
 
 #include <string>
 #include <vector>
 #include <iostream>
 #include <iomanip>
+#include <limits>
 
 #define MAX_NAME_LEN        50
 #define MAX_COLOUR_LEN      10

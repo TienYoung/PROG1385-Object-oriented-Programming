@@ -1,3 +1,16 @@
+/*
+* FILE : Circle.cpp
+* PROJECT : PROG1385 - Assignment #7
+* PROGRAMMER : Tian Yang
+* FIRST VERSION : 2024-08-10
+* DESCRIPTION :
+* This file contains the implementation of the Circle class, which is derived
+* from the Shape class. It provides functionality specific to circles, including
+* methods for calculating perimeter, area, and overall dimension based on the
+* circle's radius. The file also implements operator overloading for
+* arithmetic and comparison operations on Circle objects.
+*/
+
 #include "Circle.h"
 
 #define PI 3.1415926f

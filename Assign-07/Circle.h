@@ -1,3 +1,16 @@
+/*
+* FILE : Circle.h
+* PROJECT : PROG1385 - Assignment #7
+* PROGRAMMER : Tian Yang
+* FIRST VERSION : 2024-08-10
+* DESCRIPTION :
+* This is the header file for the Circle class. It declares the Circle class,
+* which is derived from the Shape class, and includes declarations for
+* circle-specific attributes and methods. The file defines the interface for
+* creating and manipulating Circle objects, including constructors, destructor,
+* accessors, mutators, and overloaded operators for arithmetic and comparison.
+*/
+
 #pragma once
 
 #include "Shape.h"
