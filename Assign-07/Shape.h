@@ -53,6 +53,8 @@ public:
     /// \return The colour of the shape.
     std::string GetColour(void) const;
 
+    /// \brief Non-const accessor for the colour of the shape.
+    /// \return The colour of the shape.
     std::string GetColour(void);
 
     /// \brief Mutator for the name of the shape.

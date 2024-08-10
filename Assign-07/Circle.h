@@ -42,6 +42,8 @@ public:
     /// \return The radius of the circle.
     float GetRadius(void) const;
 
+    /// \brief Non-const accessor for the radius of the circle.
+    /// \return The radius of the circle.
     float GetRadius(void);
 
     /// \brief Mutator for the radius of the circle.
@@ -61,9 +63,24 @@ public:
     /// \return The overall dimension of the circle.
     virtual float OverallDimension(void) const override;
 
+    /// \brief Overloaded addition operator for circles.
+    /// \param other The circle to add to this one.
+    /// \return A new circle with the sum of the radii and the colour of this circle.
     Circle operator+(const Circle& other) const;
+
+    /// \brief Overloaded multiplication operator for circles.
+    /// \param other The circle to multiply with this one.
+    /// \return A new circle with the product of the radii and the colour of the other circle.
     Circle operator*(const Circle& other) const;
+
+    /// \brief Overloaded assignment operator for circles.
+    /// \param other The circle to assign from.
+    /// \return A reference to this circle after assignment.
     Circle& operator=(const Circle& other);
+
+    /// \brief Overloaded equality operator for circles.
+    /// \param other The circle to compare with this one.
+    /// \return True if the circles have the same colour and radius, false otherwise.
     bool operator==(const Circle& other) const;
 
 private:

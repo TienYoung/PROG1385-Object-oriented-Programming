@@ -42,6 +42,8 @@ public:
     /// \return The side length of the square.
     float GetSideLength(void) const;
     
+    /// \brief Non-const accessor for the side length of the square.
+    /// \return The side length of the square.
     float GetSideLength(void);
 
     /// \brief Mutator for the side length of the square.
@@ -61,9 +63,24 @@ public:
     /// \return The overall dimension of the square.
     virtual float OverallDimension(void) const override;
 
+    /// \brief Overloaded addition operator for squares.
+    /// \param other The square to add to this one.
+    /// \return A new square with the sum of the side lengths and the colour of this square.
 	Square operator+(const Square& other) const;
+
+    /// \brief Overloaded multiplication operator for squares.
+    /// \param other The square to multiply with this one.
+    /// \return A new square with the product of the side lengths and the colour of the other square.
     Square operator*(const Square& other) const;
+
+    /// \brief Overloaded assignment operator for squares.
+    /// \param other The square to assign from.
+    /// \return A reference to this square after assignment.
     Square& operator=(const Square& other);
+
+    /// \brief Overloaded equality operator for squares.
+    /// \param other The square to compare with this one.
+    /// \return True if the squares have the same colour and side length, false otherwise.
 	bool operator==(const Square& other) const;
 
 private:
