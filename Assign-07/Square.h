@@ -46,6 +46,11 @@ public:
     /// \return The overall dimension of the square.
     virtual float OverallDimension(void) const override;
 
+	Square operator+(const Square& other) const;
+    Square operator*(const Square& other) const;
+    Square& operator=(const Square& other);
+	bool operator==(const Square& other) const;
+
 private:
     float m_sideLength; ///< The side length of the square.
 };

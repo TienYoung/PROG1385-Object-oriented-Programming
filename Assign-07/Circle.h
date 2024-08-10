@@ -46,6 +46,11 @@ public:
     /// \return The overall dimension of the circle.
     virtual float OverallDimension(void) const override;
 
+    Circle operator+(const Circle& other) const;
+    Circle operator*(const Circle& other) const;
+    Circle& operator=(const Circle& other);
+    bool operator==(const Circle& other) const;
+
 private:
     float m_radius; ///< The radius of the circle.
 };

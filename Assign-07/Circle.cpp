@@ -60,3 +60,31 @@ float Circle::OverallDimension(void) const
     return m_radius * 2;
 }
 
+Circle Circle::operator+(const Circle& other) const
+{
+    return { this->GetColour(), this->GetRadius() + other.GetRadius() };
+}
+
+Circle Circle::operator*(const Circle& other) const
+{
+    return { other.GetColour(), this->GetRadius() + other.GetRadius() };
+}
+
+bool Circle::operator==(const Circle& other) const
+{
+    if (this->GetColour() != other.GetColour())
+        return false;
+
+    if (abs(this->GetRadius() - other.GetRadius()) >= std::numeric_limits<float>::epsilon())
+        return false;
+
+    return true;
+}
+
+Circle& Circle::operator=(const Circle& other)
+{
+    this->SetName(other.GetName());
+    this->SetColour(other.GetColour());
+    this->SetRadius(other.GetRadius());
+    return *this;
+}

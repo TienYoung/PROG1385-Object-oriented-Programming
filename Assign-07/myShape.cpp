@@ -1,6 +1,19 @@
 #include "Circle.h"
 #include "Square.h"
 
+#define CHECK_ALLOC(expression)                              \
+do{                                                          \
+    try                                                      \
+    {                                                        \
+        expression;                                          \
+    }                                                        \                                                           \
+    catch (const std::bad_alloc& e)                          \
+    {                                                        \
+        std::cerr << "BAD_ALLOC: " << e.what() << std::endl; \
+        return 0;                                            \
+    }                                                        \
+} while(false)
+
 int main(void)
 {
     Circle* circle = nullptr;

@@ -57,3 +57,31 @@ float Square::OverallDimension(void) const
 {
     return m_sideLength;
 }
+
+Square Square::operator+(const Square& other) const
+{
+    return { this->GetColour(), this->GetSideLength() + other.GetSideLength() };
+}
+
+Square Square::operator*(const Square& other) const
+{
+    return { this->GetColour(), this->GetSideLength() * other.GetSideLength() };
+}
+
+bool Square::operator==(const Square& other) const
+{
+	if (this->GetColour() != other.GetColour())
+		return false;
+
+	if (abs(this->GetSideLength() - other.GetSideLength()) >= std::numeric_limits<float>::epsilon())
+		return false;
+
+	return true;
+}
+
+Square& Square::operator=(const Square& other)
+{
+    this->SetName(other.GetName());
+    this->SetColour(other.GetColour());
+    this->SetSideLength(other.GetSideLength());
+}
